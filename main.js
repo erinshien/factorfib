@@ -5,21 +5,24 @@ const displayedAnswer = document.getElementById("answer");
 const btnTrue = document.getElementById("true-button");
 const btnFalse = document.getElementById("false-button");
 const displayedMessage = document.getElementById("message");
-const roundsPlayed = document.getElementById("rounds-played");
-const userScore = document.getElementById("score");
+const displayedRoundsPlayed = document.getElementById("rounds-played");
+const displayedUserScore = document.getElementById("score");
 
-// Declare url variable ✅
+let roundsPlayed = 0;
+let userScore = 0;
+
+// Declare url variable
 const url = "https://opentdb.com/api.php?amount=1&category=27&type=boolean";
 
-// Create function that fetches data for 1 true/false question ✅
+// Create function that fetches data for 1 true/false question
 async function fetchQuestion() {
-    // Declare a variable for the JSON statement that is returned ✅
+    // Declare a variable for the JSON statement that is returned
     const response = await fetch(url);
-    // If the promise is unfulfilled return an error message ✅
+    // If the promise is unfulfilled return an error message
         if (!response.ok) {
             console.error(response.status);
             console.error(await response.text());
-            // Display error message in the DOM ✅
+            // Display error message in the DOM
         displayedQuestion.textContent = "Sorry, there has been an error retrieving a question for you!";
         displayedAnswer.textContent = "Please try again later.";
         }
@@ -28,37 +31,79 @@ async function fetchQuestion() {
     return questionObject;
 }
 
-// Extract the information required from fetched data
-// Question
-// Correct answer
+// Initialise variable for current question
+let currentQuestionObject = null;
+
+// Store current question in variable
+async function fetchAndStoreQuestion() {
+    currentQuestionObject = await fetchQuestion();
+}
 
 async function displayQuestion() {
-    const questionObject = await fetchQuestion();
-    
+    currentQuestionObject = null;
+    await fetchAndStoreQuestion();
+    const currentQuestion = currentQuestionObject.question;
+    console.log(currentQuestionObject);
+    // Display the question in the DOM
+    displayedQuestion.textContent = "Q: " + currentQuestion;
+    // Include line that changes the message to "please submit your answer"
+    displayedMessage.textContent = "Please submit your answer by clicking either the TRUE or the FALSE button!"
 }
 
 // Create an event listener that triggers the fetch function when the "new question" button is clicked
-// Display the question in the DOM
-// Include line that changes the message to "please submit your answer"
+btnNewQuestion.addEventListener("click", displayQuestion);
 
-// Declare a variable for the user's answer
+async function userSelectedTrue() {
+    // The user's answer is now TRUE
+    if (!currentQuestionObject) {
+        await fetchAndStoreQuestion();
+    }
+    const correctAnswer = currentQuestionObject.correct_answer;
+    displayedAnswer = "A: " + correctAnswer;
+    // Check user's answer against correct answer
+    if (correctAnswer === "True") {
+        displayedMessage.textContent = "You are correct! Well done! Please wait a few seconds before clicking NEW QUESTION."
+        roundsPlayed++
+        userScore++
+    } else {
+        displayedMessage.textContent = "I'm sorry, that is incorrect. Better luck next time! Please wait a few seconds before clicking NEW QUESTION."
+        roundsPlayed++
+    }
+    displayedRoundsPlayed.textContent = roundsPlayed.toString();
+    displayedUserScore.textContent = userScore.toString();
+}
 
 // Create an event listener for when the user clicks the "true" button
-// The user's answer is now true
-// Call the answer check function
+btnTrue.addEventListener("click", userSelectedTrue);
+
+async function userSelectedFalse() {
+    // The user's answer is now FALSE
+    if (!currentQuestionObject) {
+        await fetchAndStoreQuestion();
+    }
+    const correctAnswer = currentQuestionObject.correct_answer;
+    displayedAnswer = "A: " + correctAnswer;
+    // Check user's answer against correct answer
+    if (correctAnswer === "False") {
+        displayedMessage.textContent = "You are correct! Well done! Please wait a few seconds before clicking NEW QUESTION."
+        roundsPlayed++
+        userScore++
+    } else {
+        displayedMessage.textContent = "I'm sorry, that is incorrect. Better luck next time! Please wait a few seconds before clicking NEW QUESTION."
+        roundsPlayed++
+    }
+    displayedRoundsPlayed.textContent = roundsPlayed.toString();
+    displayedUserScore.textContent = userScore.toString();
+}
 
 // Create an event listener for when the user clicks the "false" button
-// The user's answer is now false
-// Call the answer check function
-
-// Create a function that checks if the user's answer matches the API listed answer
-// Update the "answer" paragraph element to include the answer
-// If the answer matches, change the message to "well done", increase score by 1
-// If the answer does not match, change the message to "better luck next time"
+btnFalse.addEventListener("click", userSelectedFalse);
 
 // Create an event listener that changes the message to "please click the "new question" button to receive your first question" when the DOM is loaded ✅
-document.addEventListener("DOMContentLoaded", initiateDisplayedMessage);
+document.addEventListener("DOMContentLoaded", initialDisplayedContent);
 
-function initiateDisplayedMessage() {
+function initialDisplayedContent() {
     displayedMessage.textContent = "Please click the NEW QUESTION button to receive your first question!"
+    displayedRoundsPlayed.textContent = roundsPlayed.toString();
+    displayedUserScore.textContent = userScore.toString();
 }
