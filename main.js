@@ -1,12 +1,34 @@
-// Declare url variable
-const url = "https://opentdb.com/api.php?amount=1&category=27&type=boolean";
+// Declare variables for the DOM elements that will be manipulated
+const btnNewQuestion = document.getElementById("new-question");
+const displayedQuestion = document.getElementById("question");
+const displayedAnswer = document.getElementById("answer");
+const btnTrue = document.getElementById("true-button");
+const btnFalse = document.getElementById("false-button");
+const displayedMessage = document.getElementById("message");
+const roundsPlayed = document.getElementById("rounds-played");
+const playerScore = document.getElementById("score");
 
-// Create function that fetches data for 1 true/false question
-// Fetch data
-// If the promise is unfulfilled return an error message
+// Declare url variable ✅
+const quizUrl = "https://opentdb.com/api.php?amount=1&category=27&type=boolean";
+
+// Create function that fetches data for 1 true/false question ✅
+async function fetchQuestion() {
+    // Declare a variable for the JSON statement that is returned ✅
+    const response = await fetch(quizUrl);
+    // If the promise is unfulfilled return an error message ✅
+        if (!response.ok) {
+            console.error(response.status);
+            console.error(await response.text());
+            // Display error message in the DOM 🅾️
+        }
+    // Convert JSON statement to object
+    const { results: [questionObject] } = await response.json();
+    console.log(questionObject);
+}
+
+fetchQuestion();
+
 // Log fetched data
-
-// Declare a variable for the JSON statement that is returned
 
 // Create an event listener that triggers the fetch function when the "new question" button is clicked
 // Display the question in the DOM
