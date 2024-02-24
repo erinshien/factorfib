@@ -46,6 +46,7 @@ async function displayQuestion() {
     console.log(currentQuestionObject);
     // Display the question in the DOM
     displayedQuestion.textContent = "Q: " + currentQuestion;
+    displayedAnswer.textContent = "A: ";
     // Include line that changes the message to "please submit your answer"
     displayedMessage.textContent = "Please submit your answer by clicking either the TRUE or the FALSE button!"
 }
@@ -59,7 +60,7 @@ async function userSelectedTrue() {
         await fetchAndStoreQuestion();
     }
     const correctAnswer = currentQuestionObject.correct_answer;
-    displayedAnswer = "A: " + correctAnswer;
+    displayedAnswer.textContent = "A: " + correctAnswer;
     // Check user's answer against correct answer
     if (correctAnswer === "True") {
         displayedMessage.textContent = "You are correct! Well done! Please wait a few seconds before clicking NEW QUESTION."
@@ -82,7 +83,7 @@ async function userSelectedFalse() {
         await fetchAndStoreQuestion();
     }
     const correctAnswer = currentQuestionObject.correct_answer;
-    displayedAnswer = "A: " + correctAnswer;
+    displayedAnswer.textContent = "A: " + correctAnswer;
     // Check user's answer against correct answer
     if (correctAnswer === "False") {
         displayedMessage.textContent = "You are correct! Well done! Please wait a few seconds before clicking NEW QUESTION."
