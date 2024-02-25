@@ -46,7 +46,16 @@ function decodeHTMLEntities(text) {
     return tempElement.textContent || tempElement.innerText;
 }
 
+let isButtonDisabled = false;
+
 async function displayQuestion() {
+    if (isButtonDisabled) {
+        return;
+    }
+
+    isButtonDisabled = true;
+    btnNewQuestion.disabled = true;
+
     currentQuestionObject = null;
     await fetchAndStoreQuestion();
     // Declare current question variable
@@ -57,6 +66,11 @@ async function displayQuestion() {
     displayedAnswer.textContent = "A: ";
     // Include line that changes the message to "please submit your answer"
     displayedMessage.textContent = "Please submit your answer by clicking either the TRUE or the FALSE button!"
+
+    setTimeout(() => {
+        isButtonDisabled = false;
+        btnNewQuestion.disabled = false;
+    }, 5000);
 }
 
 // Create an event listener that triggers the fetch function when the "new question" button is clicked
@@ -71,11 +85,11 @@ async function userSelectedTrue() {
     displayedAnswer.textContent = "A: " + correctAnswer;
     // Check user's answer against correct answer
     if (correctAnswer === "True") {
-        displayedMessage.textContent = "You are correct! Well done! Please wait a few seconds before clicking NEW QUESTION."
+        displayedMessage.textContent = "You are correct! Well done!"
         roundsPlayed++
         userScore++
     } else {
-        displayedMessage.textContent = "I'm sorry, that is incorrect. Better luck next time! Please wait a few seconds before clicking NEW QUESTION."
+        displayedMessage.textContent = "I'm sorry, that is incorrect. Better luck next time!"
         roundsPlayed++
     }
     displayedRoundsPlayed.textContent = roundsPlayed.toString();
@@ -94,11 +108,11 @@ async function userSelectedFalse() {
     displayedAnswer.textContent = "A: " + correctAnswer;
     // Check user's answer against correct answer
     if (correctAnswer === "False") {
-        displayedMessage.textContent = "You are correct! Well done! Please wait a few seconds before clicking NEW QUESTION."
+        displayedMessage.textContent = "You are correct! Well done!"
         roundsPlayed++
         userScore++
     } else {
-        displayedMessage.textContent = "I'm sorry, that is incorrect. Better luck next time! Please wait a few seconds before clicking NEW QUESTION."
+        displayedMessage.textContent = "I'm sorry, that is incorrect. Better luck next time!"
         roundsPlayed++
     }
     displayedRoundsPlayed.textContent = roundsPlayed.toString();
