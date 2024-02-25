@@ -49,6 +49,8 @@ function decodeHTMLEntities(text) {
 let isButtonDisabled = false;
 
 async function displayQuestion() {
+    enableAnswerButtons();
+    
     if (isButtonDisabled) {
         return;
     }
@@ -60,7 +62,7 @@ async function displayQuestion() {
     await fetchAndStoreQuestion();
     // Declare current question variable
     const currentQuestion = decodeHTMLEntities(currentQuestionObject.question);
-    console.log(currentQuestionObject);
+    // console.log(currentQuestionObject);
     // Display the question in the DOM
     displayedQuestion.textContent = "Q: " + currentQuestion;
     displayedAnswer.textContent = "A: ";
@@ -76,7 +78,20 @@ async function displayQuestion() {
 // Create an event listener that triggers the fetch function when the "new question" button is clicked
 btnNewQuestion.addEventListener("click", displayQuestion);
 
+// Create function to disable true/false buttons
+function disableAnswerButtons() {
+    btnTrue.disabled = true;
+    btnFalse.disabled = true;
+}
+
+// Create function to enable true/false buttons
+function enableAnswerButtons() {
+    btnTrue.disabled = false;
+    btnFalse.disabled = false;
+}
+
 async function userSelectedTrue() {
+    disableAnswerButtons();
     // The user's answer is now TRUE
     if (!currentQuestionObject) {
         await fetchAndStoreQuestion();
@@ -100,6 +115,7 @@ async function userSelectedTrue() {
 btnTrue.addEventListener("click", userSelectedTrue);
 
 async function userSelectedFalse() {
+    disableAnswerButtons();
     // The user's answer is now FALSE
     if (!currentQuestionObject) {
         await fetchAndStoreQuestion();
