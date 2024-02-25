@@ -11,11 +11,12 @@ const displayedUserScore = document.getElementById("score");
 let roundsPlayed = 0;
 let userScore = 0;
 
-// Declare url variable
-const url = "https://opentdb.com/api.php?amount=1&category=27&type=boolean";
-
 // Create function that fetches data for 1 true/false question
 async function fetchQuestion() {
+    // Declare variables for category and difficulty input
+    const category = document.getElementById("category-dropdown").value;
+    // Declare url variable
+    const url = `https://opentdb.com/api.php?amount=1&category=${category}&type=boolean`
     // Declare a variable for the JSON statement that is returned
     const response = await fetch(url);
     // If the promise is unfulfilled return an error message
@@ -100,7 +101,7 @@ async function userSelectedFalse() {
 // Create an event listener for when the user clicks the "false" button
 btnFalse.addEventListener("click", userSelectedFalse);
 
-// Create an event listener that changes the message to "please click the "new question" button to receive your first question" when the DOM is loaded ✅
+// Create an event listener that changes the message to "please click the "new question" button to receive your first question" when the DOM is loaded
 document.addEventListener("DOMContentLoaded", initialDisplayedContent);
 
 function initialDisplayedContent() {
