@@ -50,7 +50,7 @@ let isButtonDisabled = false;
 
 async function displayQuestion() {
     enableAnswerButtons();
-    
+
     if (isButtonDisabled) {
         return;
     }
@@ -145,4 +145,46 @@ function initialDisplayedContent() {
     displayedMessage.textContent = "Please click the NEW QUESTION button to receive your first question!"
     displayedRoundsPlayed.textContent = roundsPlayed.toString();
     displayedUserScore.textContent = userScore.toString();
+    disableAnswerButtons();
 }
+
+const dropdownMenu = document.getElementById("category-dropdown");
+const image = document.getElementById("image");
+
+image.src = "icons/question_7484754.png"
+
+dropdownMenu.addEventListener("change", function() {
+
+    let selectedCategory = dropdownMenu.value;
+
+    if (selectedCategory === "25") {
+        image.src = "icons/painting_2071413.png"
+    } else if (selectedCategory === "27") {
+        image.src = "icons/pawprints_372115.png"
+    } else if (selectedCategory === "10") {
+        image.src = "icons/book_12532141.png"
+    } else if (selectedCategory === "29") {
+        image.src = "icons/pow_9824263.png"
+    } else if (selectedCategory === "11") {
+        image.src = "icons/clapperboard_408426.png"
+    } else if (selectedCategory === "22") {
+        image.src = "icons/globe_5597126.png"
+    } else if (selectedCategory === "23") {
+        image.src = "icons/manuscript_9300805.png"
+    } else if (selectedCategory === "12") {
+        image.src = "icons/music-note_5391441.png"
+    } else if (selectedCategory === "20") {
+        image.src = "icons/poseidon_2298934.png"
+    } else if (selectedCategory === "17") {
+        image.src = "icons/science_6747064.png"
+    } else if (selectedCategory === "21") {
+        image.src = "icons/sport_2682032.png"
+    } else if (selectedCategory === "14") {
+        image.src = "icons/television_8743311.png"
+    } else if (selectedCategory === "15") {
+        image.src = "icons/recreational_1655720.png"
+    } else {
+        image.src = "icons/question_7484754.png"
+    }
+
+})
