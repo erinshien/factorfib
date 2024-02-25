@@ -54,6 +54,7 @@ img {
     font-family: 'Futura';
     margin-right: 10px;
     width: auto;
+    border-radius: 5px;
 }
 
 button {
@@ -62,6 +63,12 @@ button {
     font-family: 'Futura';
     border: 1px solid #686e70;
     max-width: 100%;
+    border-radius: 5px;
+}
+
+button:hover {
+    color: #767a7b;
+    box-shadow: 0px 2px 6px 1px rgba(50, 50, 50, 0.08);
 }
 
 .true-false-buttons {
