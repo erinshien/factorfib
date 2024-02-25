@@ -40,10 +40,17 @@ async function fetchAndStoreQuestion() {
     currentQuestionObject = await fetchQuestion();
 }
 
+function decodeHTMLEntities(text) {
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = text;
+    return tempElement.textContent || tempElement.innerText;
+}
+
 async function displayQuestion() {
     currentQuestionObject = null;
     await fetchAndStoreQuestion();
-    const currentQuestion = currentQuestionObject.question;
+    // Declare current question variable
+    const currentQuestion = decodeHTMLEntities(currentQuestionObject.question);
     console.log(currentQuestionObject);
     // Display the question in the DOM
     displayedQuestion.textContent = "Q: " + currentQuestion;
