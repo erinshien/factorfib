@@ -1,5 +1,5 @@
 body {
-    background-image: url("/geometry.png");
+    background-image: url("geometry.png");
     color: #313638;
     font-family: 'Futura';
     display: flex;
