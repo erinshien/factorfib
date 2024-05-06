@@ -27,7 +27,7 @@
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -108,8 +108,8 @@ The app started out as just a simple animal trivia game, but I expanded to inclu
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
 
 * [Icons by Freepik](https://www.freepik.com/)
 * [Background Image by Wesley at Toptal](https://www.toptal.com/designers/subtlepatterns/inspiration-geometry/)
